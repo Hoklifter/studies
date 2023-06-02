@@ -1,3 +1,3 @@
 # studies
 
-O objetivo será 30 exercícios de cada assunto.
+O objetivo será 20 exercícios de cada assunto.
