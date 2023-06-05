@@ -1,3 +1,3 @@
 # studies
 
-O objetivo será 20 exercícios de cada assunto.
+My objective is to complete 20 exercises from each subject.
