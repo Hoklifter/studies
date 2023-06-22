@@ -37,12 +37,9 @@ to a roman numeral.'''
             1: 'I',
         }
 
-        # Expand input and returns error if not possible.
-        try:
-            if not int(user_n) > 0 < 4000: raise ValueError
-            expanded_n = Conversion.expand_notation(user_n)
-        except ValueError:
-            return 'Provide a valid number (int > 0 < 4000).'
+        if not (0 < int(user_n) < 4000):
+            raise 'Provide a valid number (int > 0 < 4000).'
+        expanded_n = Conversion.expand_notation(user_n)
 
         if  expanded_n == [0]:
             return 'Zero is not represented in roman numerals.'
