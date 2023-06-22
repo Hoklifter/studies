@@ -38,7 +38,7 @@ to a roman numeral.'''
         }
 
         if not (0 < int(user_n) < 4000):
-            raise 'Provide a valid number (int > 0 < 4000).'
+            raise ValueError('Provide a valid number (int > 0 < 4000).')
         expanded_n = Conversion.expand_notation(user_n)
 
         if  expanded_n == [0]:
