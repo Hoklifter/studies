@@ -6,8 +6,8 @@
 '''
 
 
-class Conversion:
-    'Provides methods to convert numbers to other ways of representation.'
+class Roman:
+    'Provides methods to convert numbers to roman numerals and vice-versa.'
 
     def expand_notation(user_n: 'Integer | Integer String') -> 'List': # type:ignore
         '''Returns a list with an expanded integer.'''
@@ -39,7 +39,7 @@ to a roman numeral.'''
 
         if not (0 < int(user_n) < 4000):
             raise ValueError('Provide a valid number (int > 0 < 4000).')
-        expanded_n = Conversion.expand_notation(user_n)
+        expanded_n = Roman.expand_notation(user_n)
 
         if  expanded_n == [0]:
             return 'Zero is not represented in roman numerals.'
@@ -49,55 +49,57 @@ to a roman numeral.'''
 
         for element in expanded_n:
             while element > 0:
-                # Biggest value smaller or equal to element.
-                roman_algarism_value = \
-                  max(roman_numerals, key=lambda numeral: numeral <= element)
+                # Biggest int smaller or equal to element.
+                roman_algarism_int = max(roman_numerals, key=lambda numeral:
+                numeral <= element)
 
-                #Biggest value smaller than roman_algarism_value.
-                prev_algarism_value = \
-                  max(roman_numerals, key=lambda numeral : \
-                    numeral < roman_algarism_value)
+                #Biggest int smaller than roman_algarism_int.
+                prev_algarism_int = max(roman_numerals, key=lambda numeral:
+                numeral < roman_algarism_int)
 
-                # Smallest value bigger than element.
                 try:
-                    post_algarism_value = \
-                     min(filter(lambda numeral: numeral > element, roman_numerals))
+                    # Smallest int bigger than element.
+                    post_algarism_int = min(filter(lambda numeral:
+                    numeral > element, roman_numerals))
 
                 # This happens when it tries to get the next numeral of
                 # the last numeral. In this case, the next of 1000.
                 except ValueError:
-                    post_algarism_value = 0
+                    post_algarism_int = 0
 
-                # Quantity of algarisms to represent a number.
-                quantity = element // roman_algarism_value
+                # Quantity of numerals to represent a number.
+                quantity = element // roman_algarism_int
 
-                # Value provided is previous value from other e.g (XL)40, prev. (L)50.
-                if element == post_algarism_value - 10 ** (len(str(element))-1):
-                    if '1' in str(roman_algarism_value):
-                        current_numeral = \
-                          roman_numerals[roman_algarism_value] + \
-                          roman_numerals[post_algarism_value]
+                # int provided is previous int from other in r. numerals
+                # e.g (XL)40 is previous of (L)50.
+                element_is_base_10 = '1' in str(roman_algarism_int)
+                element_is_previous = \
+                (element == post_algarism_int - 10 ** (len(str(element))-1))
+
+                if element_is_previous:
+                    if element_is_base_10:
+                        current_numeral = roman_numerals[roman_algarism_int]
                     else:
-                        current_numeral = \
-                          roman_numerals[prev_algarism_value] + \
-                          roman_numerals[post_algarism_value]
+                        current_numeral = roman_numerals[prev_algarism_int]
+
+                    current_numeral += roman_numerals[post_algarism_int]
                     element = 0
 
-                # Algarism value of base 10 e.g 1000, 100, 10, 1.
-                elif '1' in str(roman_algarism_value):
+                # Algarism int of base 10 e.g 1000, 100, 10, 1.
+                elif element_is_base_10:
                     current_numeral = \
-                      roman_numerals[roman_algarism_value] * quantity
-                    element -= roman_algarism_value * quantity
+                      roman_numerals[roman_algarism_int] * quantity
+                    element -= roman_algarism_int * quantity
 
-                # Algarism value of base 10 times 5 e.g 5000, 500, 50, 5.
+                # Algarism int of base 10 times 5 e.g 5000, 500, 50, 5.
                 else:
-                    current_numeral = roman_numerals[roman_algarism_value]
-                    element -= roman_algarism_value
+                    current_numeral = roman_numerals[roman_algarism_int]
+                    element -= roman_algarism_int
 
                 user_n_in_roman += current_numeral
 
-                # print(f'{roman_algarism_value = }')
-                # print(f'{post_algarism_value = }')
+                # print(f'{roman_algarism_int = }')
+                # print(f'{post_algarism_int = }')
                 # print(f'{quantity = }')
                 # print(f'{user_n_in_roman = }')
                 # print(f'{user_n_copy = }\n')
@@ -108,4 +110,4 @@ x = input('''Forneça um inteiro maior que zero e menor que 4000.
 O programa o converterá para números romanos.
 
 : ''')
-print(f'Número {x} convertido para números romanos = {Conversion.to_roman(x)}')
+print(f'Número {x} convertido para números romanos = {Roman.to_roman(x)}.')
