@@ -33,7 +33,7 @@ class MatchBrackets:
                     count -= 1
                 if count < 0:
                     return False
-        return True
+        return count == 0
 
 
 
@@ -42,3 +42,4 @@ print(MatchBrackets.match_brackets('(){}[]'))
 print(MatchBrackets.match_brackets('()[{)}'))
 print(MatchBrackets.match_brackets('()'))
 print(MatchBrackets.match_brackets('())('))
+print(MatchBrackets.match_brackets('{{}'))
