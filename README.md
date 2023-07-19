@@ -1,3 +1,5 @@
 # studies
 
-My objective is to complete 20 exercises from each subject.
+Current goals:
+
+Complete all exercises from https://www.w3resource.com/python-exercises/
