@@ -5,6 +5,6 @@
 45. Write a Python program that calls an external command.
 '''
 
-import subprocess, os.path
+import subprocess
 
-subprocess.call(['cat', os.path.basename(__file__)])
+subprocess.call(['cat', __file__])
