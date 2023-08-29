@@ -48,5 +48,9 @@ while running:
 
 
     playerX += playerX_change
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= WIDTH - 64:
+        playerX = WIDTH - 64
     player(playerX, playerY)
     pygame.display.update()
