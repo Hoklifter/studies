@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # Initialize the pygame
 pygame.init()
@@ -16,11 +17,21 @@ pygame.display.set_icon(icon)
 # Player
 playerImg = pygame.image.load('ship64.png')
 playerX = WIDTH // 2 - 32
-playerY = (HEIGHT // 3) * 2
+playerY = HEIGHT - 64 - 10
 playerX_change = 0
 
 def player(x, y):
     screen.blit(playerImg, (x, y))
+
+# Enemy
+enemyImg = pygame.image.load('alien64.png')
+enemyX = random.randint(64, WIDTH-64)
+enemyY = random.randint(0, (HEIGHT // 2)-64)
+enemyX_change = 0
+
+def enemy(x, y):
+    screen.blit(enemyImg, (x, y))
+
 
 # Game Loop
 running = True
@@ -48,9 +59,11 @@ while running:
 
 
     playerX += playerX_change
+
     if playerX <= 0:
         playerX = 0
     elif playerX >= WIDTH - 64:
         playerX = WIDTH - 64
     player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
