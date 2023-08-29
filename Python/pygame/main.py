@@ -18,8 +18,8 @@ playerImg = pygame.image.load('ship64.png')
 playerX = WIDTH // 2 - 32
 playerY = (HEIGHT // 3) * 2
 
-def player():
-    screen.blit(playerImg, (playerX, playerY))
+def player(x, y):
+    screen.blit(playerImg, (x, y))
 
 # Game Loop
 running = True
@@ -34,5 +34,6 @@ while running:
 
 
     screen.fill((0, 0, 0))
-    player()
+    playerY -= 0.1
+    player(playerX, playerY)
     pygame.display.update()
