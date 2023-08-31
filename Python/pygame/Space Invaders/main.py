@@ -44,7 +44,7 @@ for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load('alien64.png'))
     enemyX.append(random.randint(0, WIDTH-64))
     enemyY.append(random.randint(0, (HEIGHT // 2)-64))
-    enemyX_change.append(0.3)
+    enemyX_change.append(1)
     enemyY_change.append(40)
 
 
@@ -59,17 +59,25 @@ def enemy(x, y, i):
 bulletImg = pygame.image.load('bullet32.png')
 bulletX = 0
 bulletY = playerY
-bulletY_change = 10
+bulletY_change = 2
 bullet_state = 'ready'
+
 # Score
 score_value = 0
 font = pygame.font.Font('freesansbold.ttf', 32)
 textX = 10
 textY = 10
 
+# Game Over Text
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+
 def show_score(x, y):
     score = font.render(f"Score: {score_value}", True, (255, 255, 255))
     screen.blit(score, (x, y))
+
+def game_over_text():
+    over_text = over_font.render(f"GAME OVER", True, (255, 255, 255))
+    screen.blit(over_text, (WIDTH // 2 - 200, HEIGHT // 2))
 
 def fire_bullet(x, y):
     global bullet_state
@@ -94,6 +102,7 @@ while running:
     screen.blit(background, (0,0))
 
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             running = False
 
@@ -129,12 +138,20 @@ while running:
 
     # Enemy Movement
     for i in range(num_of_enemies):
+
+        # Game Over
+        if enemyY[i] > playerY - 40:
+            for j in range(num_of_enemies):
+                enemyY[j] = 2000
+            game_over_text()
+            break
+
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
-            enemyX_change[i] = 0.5
+            enemyX_change[i] = 1
             enemyY[i] += enemyY_change[i]
         elif enemyX[i] >= WIDTH - 64:
-            enemyX_change[i] = -0.5
+            enemyX_change[i] = -1
             enemyY[i] += enemyY_change[i]
 
         # Collision
