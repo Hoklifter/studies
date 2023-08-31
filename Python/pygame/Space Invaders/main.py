@@ -12,19 +12,19 @@ HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Background
-background = pygame.image.load('background.jpg')
+background = pygame.image.load('assets/images/background.jpg')
 
 # Background Sound
-mixer.music.load('background.wav')
+mixer.music.load('assets/sounds/background.wav')
 mixer.music.play(-1)
 
 # Caption and Icon
 pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('ship32.png')
+icon = pygame.image.load('assets/images/ship32.png')
 pygame.display.set_icon(icon)
 
 # Player
-playerImg = pygame.image.load('ship64.png')
+playerImg = pygame.image.load('assets/images/ship64.png')
 playerX = WIDTH // 2 - 32
 playerY = HEIGHT - 64 - 10
 playerX_change = 0
@@ -41,7 +41,7 @@ enemyY_change = []
 num_of_enemies = 6
 
 for i in range(num_of_enemies):
-    enemyImg.append(pygame.image.load('alien64.png'))
+    enemyImg.append(pygame.image.load('assets/images/alien64.png'))
     enemyX.append(random.randint(0, WIDTH-64))
     enemyY.append(random.randint(0, (HEIGHT // 2)-64))
     enemyX_change.append(1)
@@ -56,7 +56,7 @@ def enemy(x, y, i):
 # Ready - You can't see the bullet on the screen
 # Fire  - The bullet is currently moving
 
-bulletImg = pygame.image.load('bullet32.png')
+bulletImg = pygame.image.load('assets/images/bullet32.png')
 bulletX = 0
 bulletY = playerY
 bulletY_change = 2
@@ -116,7 +116,7 @@ while running:
 
             if event.key == pygame.K_SPACE:
                 if bullet_state == 'ready':
-                    bullet_Sound = mixer.Sound('laser.wav')
+                    bullet_Sound = mixer.Sound('assets/sounds/laser.wav')
                     bullet_Sound.play()
                     # Get current x coordinate of the player
                     bulletX = playerX
@@ -157,7 +157,7 @@ while running:
         # Collision
         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision:
-            explosion_sound = mixer.Sound('explosion.wav')
+            explosion_sound = mixer.Sound('assets/sounds/explosion.wav')
             explosion_sound.play()
             bulletY = playerY
             bullet_state = 'ready'
